@@ -2,6 +2,7 @@ use bdk::bitcoin::secp256k1::Secp256k1;
 use bdk::bitcoin::util::bip32::{DerivationPath, KeySource};
 use bdk::bitcoin::Amount;
 use bdk::bitcoin::Network;
+use bdk::bitcoincore_rpc::jsonrpc::serde_json::Value;
 use bdk::bitcoincore_rpc::{Auth as rpc_auth, Client, RpcApi};
 
 use bdk::blockchain::rpc::{Auth, RpcBlockchain, RpcConfig};
@@ -28,6 +29,17 @@ fn main() {
 
     // Create the test wallet
     // core_rpc.create_wallet("test", None, None, None, None).unwrap();
+    let args = [
+        Value::String(String::from("test")),
+        Value::Bool(false),
+        Value::Bool(false),
+        Value::Null,
+        Value::Bool(false),
+        Value::Bool(false),
+        Value::Bool(true),
+        Value::Bool(false),
+    ];
+    let _: Value = core_rpc.call("createwallet", &args).unwrap();
 
     // Get a new address
     // let core_address = core_rpc.get_new_address(None, None).unwrap();
